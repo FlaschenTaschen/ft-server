@@ -1,0 +1,6 @@
+.DS_Store
+debug/
+screenshots/
+xcuserdata/
+build/
+.build/
