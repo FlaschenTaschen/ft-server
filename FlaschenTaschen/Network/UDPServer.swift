@@ -167,16 +167,13 @@ actor UDPServer {
             var pixelGrid = Array(repeating: PixelColor(id: 0, red: 0, green: 0, blue: 0),
                                  count: gridWidth * gridHeight)
 
-            let startX = max(0, min(image.offsetX, gridWidth - 1))
-            let startY = max(0, min(image.offsetY, gridHeight - 1))
-
             for y in 0..<image.height {
-                let gridY = startY + y
-                if gridY >= gridHeight { break }
+                let gridY = image.offsetY + y
+                if gridY < 0 || gridY >= gridHeight { continue }
 
                 for x in 0..<image.width {
-                    let gridX = startX + x
-                    if gridX >= gridWidth { break }
+                    let gridX = image.offsetX + x
+                    if gridX < 0 || gridX >= gridWidth { continue }
 
                     let sourceIndex = y * image.width + x
                     let targetIndex = gridY * gridWidth + gridX

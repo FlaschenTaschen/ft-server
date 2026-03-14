@@ -201,12 +201,19 @@ nonisolated final class PPMParser {
         if offset >= buffer.count { return nil }
 
         var numberStr = ""
+        // Handle optional minus sign for negative numbers
+        if buffer[offset] == UInt8(ascii: "-") {
+            numberStr.append("-")
+            offset += 1
+        }
+
         while offset < buffer.count && isDigit(buffer[offset]) {
             numberStr.append(Character(UnicodeScalar(buffer[offset])))
             offset += 1
         }
 
-        guard !numberStr.isEmpty else { return nil }
+        // Ensure we have at least one digit (not just a minus sign)
+        guard !numberStr.isEmpty && numberStr != "-" else { return nil }
         return Int(numberStr)
     }
 
