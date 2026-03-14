@@ -33,6 +33,8 @@ final class DisplayModel {
     var activeLayers: [Int] = []
     var layerStats: [Int: LayerStatistics] = [:]
     var ipAddress: String = "..."
+    var useCirclePixels: Bool = false
+    var useLensDistortion: Bool = false
 
     private var server: UDPServer?
     private var pendingPixelUpdate: [PixelColor]?
@@ -69,6 +71,9 @@ final class DisplayModel {
 
         layerTimeout = defaults.integer(forKey: "displayLayerTimeout")
         if layerTimeout == 0 { layerTimeout = 15 }
+
+        useCirclePixels = defaults.bool(forKey: "displayUseCirclePixels")
+        useLensDistortion = defaults.bool(forKey: "displayuseLensDistortion")
     }
 
     func saveSettings() {
@@ -78,6 +83,8 @@ final class DisplayModel {
         defaults.set(Double(pixelWidth), forKey: "displayPixelSize")
         defaults.set(maxFrameRate, forKey: "displayMaxFrameRate")
         defaults.set(layerTimeout, forKey: "displayLayerTimeout")
+        defaults.set(useCirclePixels, forKey: "displayUseCirclePixels")
+        defaults.set(useLensDistortion, forKey: "displayuseLensDistortion")
     }
 
     private func initializePixelData() {

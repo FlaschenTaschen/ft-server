@@ -40,6 +40,29 @@ struct ServerControlsView: View {
             }
             .controlSize(.small)
             .buttonStyle(.bordered)
+
+            HStack(spacing: 12) {
+                HStack(spacing: 6) {
+                    Image(systemName: "circle.fill")
+                        .font(.system(.caption))
+                    Toggle("", isOn: $displayModel.useCirclePixels)
+                        .onChange(of: displayModel.useCirclePixels) {
+                            displayModel.saveSettings()
+                        }
+                        .labelsHidden()
+                }
+
+                HStack(spacing: 6) {
+                    Image(systemName: "lens.wide")
+                        .font(.system(.caption))
+                    Toggle("", isOn: $displayModel.useLensDistortion)
+                        .onChange(of: displayModel.useLensDistortion) {
+                            displayModel.saveSettings()
+                        }
+                        .labelsHidden()
+                }
+            }
+
         }
     }
 }
